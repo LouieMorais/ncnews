@@ -5,6 +5,8 @@
 //   return { created_at: new Date(created_at), ...otherProperties };
 // };
 
+// git commit --no-verify -m "Your commit message"
+
 
 exports.convertTimestampToDate = (timestamp) => {
   if (timestamp === null || timestamp === undefined) {

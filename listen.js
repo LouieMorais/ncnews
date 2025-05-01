@@ -1,5 +1,5 @@
 const app = require('./app.js');
-const { PORT = 9090 } = process.env; // Default port or from environment
+const { PORT = 9090 } = process.env; 
 
 app.listen(PORT, (err) => {
   if (err) throw err;

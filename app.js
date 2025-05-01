@@ -1,10 +1,10 @@
 const express = require('express');
+const endpointsJson = require('./endpoints.json');
 const app = express();
 
-// Basic route to test server is running (optional)
 app.get('/api', (req, res) => {
-  res.status(200).send({ message: 'Server is running!' });
+  res.status(200).send({ endpoints: endpointsJson }); // Log: forgot to change this to send endpoints 
 });
 
-// Export the app for listen.js
+
 module.exports = app;

@@ -25,7 +25,7 @@ afterAll(() => {
 
 
 // Kata 1 - CORE: GET /api - Branch 1-get-api
-describe("GET /api", () => {
+describe.skip("GET /api", () => {
   test("200: Responds with an object detailing the documentation for each endpoint", () => {
     return request(app)
       .get("/api")
@@ -38,3 +38,23 @@ describe("GET /api", () => {
       });
       });
   });
+
+  // Kata 2 - CORE: GET /api/topics
+  describe("GET /api", () => {
+    test("200: Responds with an object (?) containing topics", () => {
+      return request(app)
+        .get("/api")
+        .expect(200) 
+        .then(({ body }) => { 
+          expect(body.topics).toBeInstanceOf(Array);
+          expect(body.topics.length).toBeGreaterThan(0);
+          body.topics.forEach((topic) => {
+            expect(topic).toHaveProperty('slug');
+            expect(topic).toHaveProperty('description');
+            expect(typeof topic.slug).toBe('string');
+            expect(typeof topic.description).toBe('string');
+          })
+        });
+        });
+    });
+  

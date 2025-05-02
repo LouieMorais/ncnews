@@ -75,10 +75,23 @@ describe.skip('GET /api', () => {
           expect(body.article).toHaveProperty('article_img_url', expect.any(String)); 
           })
         });
-      test('404: Valid but non-existent id', () => {
-        expect(body.msg).toBe('Article not found');
-      });
-      test('404: Invalid id', () => {
-        expect(body.msg).toBe('Bad Request: Invalid article ID');
-      });
+        test('404: valid but non-existent id', () => {
+          const ARTICLE_ID = 9999;
+          return request(app)
+            .get(`/api/articles/${ARTICLE_ID}`)
+            .expect(404) 
+            .then(({ body }) => { 
+              expect(body.msg).toBe('Article not found');
+            });
+        });
+      
+        test('400: invalid id', () => {
+          const ARTICLE_ID = 'not-a-valid-id';
+          return request(app)
+            .get(`/api/articles/${ARTICLE_ID}`)
+            .expect(400) 
+            .then(({ body }) => { 
+              expect(body.msg).toBe('Bad Request: Invalid article ID');
+            });
+        });
     });

@@ -3,6 +3,7 @@ const endpointsJson = require('./endpoints.json');
 const app = express();
 const { getTopics } = require('./controllers/topics.controller'); // Log: forgot to add this call and failed test
 const { getArticleId, getArticleById } = require('./controllers/articles.controller'); 
+const { getAllArticles } = require('./controllers/articles.controller'); // Kata 4 - Get /api/articles - to fetch all articles
 
 // Kata 1-get-api
 app.get('/api', (req, res) => {
@@ -29,5 +30,8 @@ app.use((err, req, res, next) => {
   console.error('Unhandled Error: ', err);
     res.status(500).send({ msg: 'Internal Server Error' });
 }); 
+
+// Kata 4 - Get /api/articles - to fetch all articles
+app.get('/api/articles', getAllArticles);  
 
 module.exports = app;

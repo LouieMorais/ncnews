@@ -9,6 +9,7 @@ const { getCommentsByArticleId } = require('./controllers/comments.controller');
 const { postCommentByArticleId } = require('./controllers/comments.controller'); // Kata 6
 const { patchArticleVotes } = require('./controllers/articles.controller'); // Kata 7 - PATCH /api/articles/:article_id
 const { deleteComment } = require('./controllers/comments.controller'); // Kata 8: DELETE /api/comments/:comment_id
+const { getAllUsers } = require('./controllers/users.controller'); // Kata 9: GET /api/users
 
 // Kata 1-get-api
 app.get('/api', (req, res) => {
@@ -37,6 +38,9 @@ app.patch('/api/articles/:article_id', patchArticleVotes);
 
 // Kata 8: DELETE /api/comments/:comment_id
 app.delete('/api/comments/:comment_id', deleteComment);
+
+// Kata 9: GET /api/users
+app.get('/api/users', getAllUsers);
 
 // Error handling
 app.use((err, req, res, next) => {

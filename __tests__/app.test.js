@@ -224,3 +224,14 @@ describe('DELETE /api/comments/:comment_id', () => {
     expect(res.body.msg).toBe('Comment not found');
   });
 });
+
+// Kata 9: GET /api/usersdescribe('GET /api/users', () => {
+describe('GET /api/users', () => {
+  it('200: responds with an array of user objects', async () => {
+    const res = await request(app).get('/api/users').expect(200);
+    expect(Array.isArray(res.body.users)).toBe(true);
+    expect(res.body.users[0]).toHaveProperty('username');
+    expect(res.body.users[0]).toHaveProperty('name');
+    expect(res.body.users[0]).toHaveProperty('avatar_url');
+  });
+});

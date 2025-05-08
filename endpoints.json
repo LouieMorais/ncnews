@@ -15,7 +15,16 @@
         }
     },
     "GET /api/articles": {
-        "description": "serves an array of all articles",
+        "description": "Serves an array of all articles. Supports sorting by any valid column and ordering (ascending/descending) via query parameters.",
+        "queries": [
+            "sort_by",
+            "order"
+        ],
+        "exampleRequests": [
+            "/api/articles",
+            "/api/articles?sort_by=title&order=asc",
+            "/api/articles?sort_by=votes&order=desc"
+        ],
         "exampleResponse": {
             "articles": [
                 {
@@ -29,7 +38,13 @@
                     "comment_count": 8
                 }
             ]
-        }
+        },
+        "errors": [
+            {
+                "status": 400,
+                "msg": "Invalid sort or order query"
+            }
+        ]
     },
     "GET /api/articles/:article_id": {
         "description": "returns an article by its id",

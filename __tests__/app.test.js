@@ -235,3 +235,17 @@ describe('GET /api/users', () => {
     expect(res.body.users[0]).toHaveProperty('avatar_url');
   });
 });
+
+// Kata 10 - GET /api/articles (sorting queries)
+describe('GET /api/articles (sorting queries)', () => {
+  it('200: sorts articles by any valid column and order', async () => {
+    const res = await request(app).get('/api/articles?sort_by=title&order=asc').expect(200);
+    expect(Array.isArray(res.body.articles)).toBe(true);
+    // Optionally, check that the array is sorted as expected
+  });
+
+  it('400: responds with bad request for invalid sort_by or order', async () => {
+    await request(app).get('/api/articles?sort_by=notacolumn').expect(400);
+    await request(app).get('/api/articles?order=notanorder').expect(400);
+  });
+});

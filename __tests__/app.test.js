@@ -108,3 +108,25 @@ describe('GET /api', () => {
         expect(res.body.articles[0]).not.toHaveProperty('body'); // Log 3 failed because forgot .not
       })
     })
+
+    // Kata 5 - Get /api/articles/:article_id/comments - to fetch all comments in an article
+    describe('GET /api/articles/:article_id/comments', () => {
+      it('200: responds with an array of comments for the given article', async () => {
+        const res = await request(app).get('/api/articles/1/comments').expect(200);
+        expect(Array.isArray(res.body.comments)).toBe(true);
+        if (res.body.comments.length > 0) {
+          expect(res.body.comments[0]).toHaveProperty('comment_id');
+          expect(res.body.comments[0]).toHaveProperty('body');
+        }
+      });
+    
+      it('400: responds with bad request for invalid article ID', async () => {
+        const res = await request(app).get('/api/articles/not-a-number/comments').expect(400);
+        expect(res.body.msg).toBe('Bad Request: Invalid article ID');
+      });
+    
+      it('404: responds with not found for non-existent article', async () => {
+        const res = await request(app).get('/api/articles/9999/comments').expect(404);
+        expect(res.body.msg).toBe('Article not found');
+      });
+    });

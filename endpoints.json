@@ -93,5 +93,37 @@
               "msg": "Article not found"
           }
       ]
+  },
+  "PATCH /api/articles/:article_id": {
+      "description": "Update the votes property of the specified article.",
+      "requestBody": {
+          "inc_votes": 1
+      },
+      "exampleResponse": {
+          "article": {
+              "article_id": 1,
+              "title": "Living in the shadow of a great man",
+              "body": "I find this existence challenging",
+              "votes": 101,
+              "topic": "mitch",
+              "author": "butter_bridge",
+              "created_at": "2020-07-09T20:11:00.000Z",
+              "article_img_url": "https://images.pexels.com/photos/158651/news-newsletter-newspaper-information-158651.jpeg"
+          }
+      },
+      "errors": [
+          {
+              "status": 400,
+              "msg": "Bad Request: Invalid article ID"
+          },
+          {
+              "status": 400,
+              "msg": "Bad Request: inc_votes must be a number"
+          },
+          {
+              "status": 404,
+              "msg": "Article not found"
+          }
+      ]
   }
 }

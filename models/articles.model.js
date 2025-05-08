@@ -40,3 +40,27 @@ exports.selectAllArticles = () => {
       return result.rows;
     });
 };
+
+// Kata 7 - PATCH /api/articles/:article_id
+exports.updateArticleVotes = (article_id, inc_votes) => {
+  if (!/^[0-9]+$/.test(article_id)) {
+    return Promise.reject({ status: 400, msg: 'Bad Request: Invalid article ID' });
+  }
+  if (typeof inc_votes !== 'number') {
+    return Promise.reject({ status: 400, msg: 'Bad Request: inc_votes must be a number' });
+  }
+
+  const queryStr = `
+    UPDATE articles
+    SET votes = votes + $1
+    WHERE article_id = $2
+    RETURNING *;
+  `;
+
+  return db.query(queryStr, [inc_votes, article_id]).then((result) => {
+    if (result.rows.length === 0) {
+      return Promise.reject({ status: 404, msg: 'Article not found' });
+    }
+    return result.rows[0];
+  });
+};

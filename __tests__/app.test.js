@@ -172,3 +172,38 @@ describe('GET /api', () => {
         expect(res.body.msg).toBe('Article not found');
       });
     });
+
+    // Kata 7 - PATCH /api/articles/:article_id
+describe('PATCH /api/articles/:article_id', () => {
+  it('200: updates the votes and responds with the updated article', async () => {
+    const res = await request(app)
+      .patch('/api/articles/1')
+      .send({ inc_votes: 1 })
+      .expect(200);
+    expect(res.body.article).toHaveProperty('votes');
+  });
+
+  it('400: responds with bad request for invalid article ID', async () => {
+    const res = await request(app)
+      .patch('/api/articles/not-a-number')
+      .send({ inc_votes: 1 })
+      .expect(400);
+    expect(res.body.msg).toBe('Bad Request: Invalid article ID');
+  });
+
+  it('400: responds with bad request for missing or invalid inc_votes', async () => {
+    const res = await request(app)
+      .patch('/api/articles/1')
+      .send({ inc_votes: 'not-a-number' })
+      .expect(400);
+    expect(res.body.msg).toBe('Bad Request: inc_votes must be a number');
+  });
+
+  it('404: responds with not found for non-existent article', async () => {
+    const res = await request(app)
+      .patch('/api/articles/9999')
+      .send({ inc_votes: 1 })
+      .expect(404);
+    expect(res.body.msg).toBe('Article not found');
+  });
+});

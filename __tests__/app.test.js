@@ -130,3 +130,45 @@ describe('GET /api', () => {
         expect(res.body.msg).toBe('Article not found');
       });
     });
+
+    // Kata 6
+
+    describe('POST /api/articles/:article_id/comments', () => {
+      it('201: adds a comment and responds with the new comment', async () => {
+        const newComment = { username: 'butter_bridge', body: 'Great article!' };
+        const res = await request(app)
+          .post('/api/articles/1/comments')
+          .send(newComment)
+          .expect(201);
+        expect(res.body.comment).toHaveProperty('comment_id');
+        expect(res.body.comment).toHaveProperty('body', 'Great article!');
+        expect(res.body.comment).toHaveProperty('author', 'butter_bridge');
+        expect(res.body.comment).toHaveProperty('article_id', 1);
+      });
+    
+      it('400: responds with bad request for invalid article ID', async () => {
+        const newComment = { username: 'butter_bridge', body: 'Great article!' };
+        const res = await request(app)
+          .post('/api/articles/not-a-number/comments')
+          .send(newComment)
+          .expect(400);
+        expect(res.body.msg).toBe('Bad Request: Invalid article ID');
+      });
+    
+      it('400: responds with bad request for missing required fields', async () => {
+        const res = await request(app)
+          .post('/api/articles/1/comments')
+          .send({ username: 'butter_bridge' })
+          .expect(400);
+        expect(res.body.msg).toBe('Bad Request: Missing required fields');
+      });
+    
+      it('404: responds with not found for non-existent article', async () => {
+        const newComment = { username: 'butter_bridge', body: 'Great article!' };
+        const res = await request(app)
+          .post('/api/articles/9999/comments')
+          .send(newComment)
+          .expect(404);
+        expect(res.body.msg).toBe('Article not found');
+      });
+    });

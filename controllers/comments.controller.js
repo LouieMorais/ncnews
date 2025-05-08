@@ -12,3 +12,15 @@ exports.getCommentsByArticleId = (req, res, next) => {
       next(err);
     });
 };
+
+// Kata 6
+const { insertCommentByArticleId } = require('../models/comments.model');
+
+exports.postCommentByArticleId = (req, res, next) => {
+  const { username, body } = req.body;
+  insertCommentByArticleId(req.params.article_id, username, body)
+    .then((comment) => {
+      res.status(201).send({ comment });
+    })
+    .catch(next);
+};

@@ -8,6 +8,8 @@ const { getAllArticles } = require('./controllers/articles.controller'); // Kata
 const { getCommentsByArticleId } = require('./controllers/comments.controller'); // Kata 5 - Get /api/articles/:article_id/comments - to fetch all comments in an article
 const { postCommentByArticleId } = require('./controllers/comments.controller'); // Kata 6
 const { patchArticleVotes } = require('./controllers/articles.controller'); // Kata 7 - PATCH /api/articles/:article_id
+const { deleteComment } = require('./controllers/comments.controller'); // Kata 8: DELETE /api/comments/:comment_id
+
 // Kata 1-get-api
 app.get('/api', (req, res) => {
   res.status(200).send({ endpoints: endpointsJson }); 
@@ -32,6 +34,9 @@ app.post('/api/articles/:article_id/comments', postCommentByArticleId);
 
 // Kata 7 - PATCH /api/articles/:article_id
 app.patch('/api/articles/:article_id', patchArticleVotes);
+
+// Kata 8: DELETE /api/comments/:comment_id
+app.delete('/api/comments/:comment_id', deleteComment);
 
 // Error handling
 app.use((err, req, res, next) => {

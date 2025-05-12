@@ -69,6 +69,7 @@ describe('GET /api', () => {
           expect(body.article).toHaveProperty('author', expect.any(String)); // Log: re-study the expect.any bit
           expect(body.article).toHaveProperty('title', expect.any(String)); 
           expect(body.article).toHaveProperty('article_img_url', expect.any(String)); 
+          expect(body.article).toHaveProperty('comment_count', expect.any(Number)); // Kata 12
           })
         });
         test('404: valid but non-existent id', () => {
@@ -89,6 +90,13 @@ describe('GET /api', () => {
             .then(({ body }) => { 
               expect(body.msg).toBe('Bad Request: Invalid article ID');
             });
+        });
+
+        // Kata 12
+        test('200: article object includes comment_count', async () => {
+          const res = await request(app).get('/api/articles/1').expect(200);
+          expect(res.body.article).toHaveProperty('comment_count');
+          expect(typeof res.body.article.comment_count).toBe('number');
         });
     });
 

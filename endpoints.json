@@ -53,7 +53,7 @@
         ]
     },
     "GET /api/articles/:article_id": {
-        "description": "returns an article by its id",
+        "description": "Returns an article by its id, including the total count of comments (comment_count) for that article.",
         "queries": [],
         "exampleResponse": {
             "article": {

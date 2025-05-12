@@ -1,10 +1,12 @@
 const express = require('express');
 const endpointsJson = require('./endpoints.json');
-const app = express();
+const app = express(); 
+app.use(express.json()); // Kata 6
 const { getTopics } = require('./controllers/topics.controller'); // Log: forgot to add this call and failed test
 const { getArticleId, getArticleById } = require('./controllers/articles.controller'); 
 const { getAllArticles } = require('./controllers/articles.controller'); // Kata 4 - Get /api/articles - to fetch all articles
 const { getCommentsByArticleId } = require('./controllers/comments.controller'); // Kata 5 - Get /api/articles/:article_id/comments - to fetch all comments in an article
+const { postCommentByArticleId } = require('./controllers/comments.controller'); // Kata 6
 
 // Kata 1-get-api
 app.get('/api', (req, res) => {
@@ -24,6 +26,9 @@ app.get('/api/articles', getAllArticles);
 
 // Kata 5 - Get /api/articles/:article_id/comments - to fetch all comments in an article
 app.get('/api/articles/:article_id/comments', getCommentsByArticleId);
+
+// Kata 6
+app.post('/api/articles/:article_id/comments', postCommentByArticleId);
 
 // Error handling
 app.use((err, req, res, next) => {

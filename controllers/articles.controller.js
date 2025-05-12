@@ -23,3 +23,17 @@ exports.getAllArticles = (req, res, next) => {
         next(err);
     });
 };
+
+// Kata 7 - PATCH /api/articles/:article_id
+const { updateArticleVotes } = require('../models/articles.model');
+
+exports.patchArticleVotes = (req, res, next) => {
+  const { article_id } = req.params;
+  const { inc_votes } = req.body;
+
+  updateArticleVotes(article_id, inc_votes)
+    .then((article) => {
+      res.status(200).send({ article });
+    })
+    .catch(next);
+};

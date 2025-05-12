@@ -1,5 +1,6 @@
 const { selectArticleById } = require('../models/articles.model'); // Kata 3
 const { selectAllArticles } = require('../models/articles.model'); // Kata 4 - Get /api/articles - to fetch all articles
+const { selectAllArticlesWithSorting } = require('../models/articles.model'); // Kata 10 - GET /api/articles (sorting queries)
 
 exports.getArticleById = (req, res, next) => {
     const { article_id } = req.params;
@@ -37,3 +38,13 @@ exports.patchArticleVotes = (req, res, next) => {
     })
     .catch(next);
 };
+
+// Kata 10 - GET /api/articles (sorting queries)
+exports.getAllArticlesWithSorting = (req, res, next) => {
+    const { sort_by, order } = req.query;
+    selectAllArticlesWithSorting(sort_by, order)
+      .then((articles) => {
+        res.status(200).send({ articles });
+      })
+      .catch(next);
+  };

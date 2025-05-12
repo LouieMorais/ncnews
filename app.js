@@ -10,6 +10,7 @@ const { postCommentByArticleId } = require('./controllers/comments.controller');
 const { patchArticleVotes } = require('./controllers/articles.controller'); // Kata 7 - PATCH /api/articles/:article_id
 const { deleteComment } = require('./controllers/comments.controller'); // Kata 8: DELETE /api/comments/:comment_id
 const { getAllUsers } = require('./controllers/users.controller'); // Kata 9: GET /api/users
+const { getAllArticlesWithSorting } = require('./controllers/articles.controller'); // Kata 10 - GET /api/articles (sorting queries)
 
 // Kata 1-get-api
 app.get('/api', (req, res) => {
@@ -25,7 +26,7 @@ app.get('/api/topics', getTopics);
 app.get('/api/articles/:article_id', getArticleById);  
 
 // Kata 4 - Get /api/articles - to fetch all articles
-app.get('/api/articles', getAllArticles);  
+// app.get('/api/articles', getAllArticles);  // This was causing Kata 10 to fail
 
 // Kata 5 - Get /api/articles/:article_id/comments - to fetch all comments in an article
 app.get('/api/articles/:article_id/comments', getCommentsByArticleId);
@@ -41,6 +42,9 @@ app.delete('/api/comments/:comment_id', deleteComment);
 
 // Kata 9: GET /api/users
 app.get('/api/users', getAllUsers);
+
+// Kata 10 - GET /api/articles (sorting queries)
+app.get('/api/articles', getAllArticlesWithSorting);
 
 // Error handling
 app.use((err, req, res, next) => {

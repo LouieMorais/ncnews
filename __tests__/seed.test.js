@@ -5,7 +5,7 @@ const data = require('../db/data/test-data/index');
 beforeAll(() => seed(data));
 afterAll(() => db.end());
 
-describe.skip('seed', () => {
+describe('seed', () => {
   describe('topics table', () => {
     test('topics table exists', () => {
       return db
@@ -81,7 +81,7 @@ describe.skip('seed', () => {
     });
   });
 
-  describe.skip('users table', () => {
+  describe('users table', () => {
     test('users table exists', () => {
       return db
         .query(
@@ -155,7 +155,7 @@ describe.skip('seed', () => {
     });
   });
 
-  describe.skip('articles table', () => {
+  describe('articles table', () => {
     test('articles table exists', () => {
       return db
         .query(

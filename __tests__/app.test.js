@@ -25,7 +25,7 @@ afterAll(() => {
 
 
 // Kata 1 - CORE: GET /api - Branch 1-get-api
-describe.skip('GET /api', () => {
+describe('GET /api', () => {
   test('200: Responds with an object detailing the documentation for each endpoint', () => {
     return request(app)
       .get('/api')
@@ -95,3 +95,16 @@ describe.skip('GET /api', () => {
             });
         });
     });
+
+    // Kata 4 - Get /api/articles - to fetch all articles
+    describe('GET /api/articles', () => {
+      test('200: returns all articles', async () => {
+        const res = await request(app).get('/api/articles').expect(200);
+        expect(Array.isArray(res.body.articles)).toBe(true);
+        expect(res.body.articles[0]).toHaveProperty('author'); // Log 1 failed tests becuase articles.author instead of author
+        expect(res.body.articles[0]).toHaveProperty('comment_count'); // Log 2 failed because articles instead of articles[0]
+        expect(res.body.articles[0]).toHaveProperty('created_at');
+        expect(res.body.articles[0]).toHaveProperty('votes');
+        expect(res.body.articles[0]).not.toHaveProperty('body'); // Log 3 failed because forgot .not
+      })
+    })

@@ -112,6 +112,23 @@ describe('GET /api', () => {
         expect(res.body.articles[0]).not.toHaveProperty('body'); // Log 3 failed because forgot .not
       })
     })
+    test('400: responds with an error when sort_by is malicious SQL', () => {
+      return request(app)
+        .get('/api/articles?sort_by=DROP TABLE articles')
+        .expect(400)
+        .then(({ body }) => {
+          expect(body.msg).toBe('Invalid sort_by query');
+        });
+    });
+
+    test('400: responds with an error when order is an invalid value', () => {
+      return request(app)
+        .get('/api/articles?order=evil')
+        .expect(400)
+        .then(({ body }) => {
+          expect(body.msg).toBe('Invalid order query');
+        });
+    });
 
     // Kata 5 - Get /api/articles/:article_id/comments - to fetch all comments in an article
     describe('GET /api/articles/:article_id/comments', () => {

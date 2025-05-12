@@ -1,4 +1,6 @@
 const db = require('../db/connection');
+const { getValidatedSortBy, getValidatedOrder } = require('../utils/query-utils');
+
 
 exports.selectArticleById = (article_id) => {
   if (!/^[0-9]+$/.test(article_id)) {
@@ -63,45 +65,9 @@ exports.updateArticleVotes = (article_id, inc_votes) => {
 };
 
 // Kata 10 - GET /api/articles (sorting queries)
-exports.selectAllArticlesWithSorting = (sort_by = 'created_at', order = 'desc') => {
-  const validSorts = [
-    'author', 'title', 'article_id', 'topic', 'created_at', 'votes', 'article_img_url', 'comment_count'
-  ];
-  const validOrders = ['asc', 'desc'];
-
-  // Only validate if the query param is present
-  if (sort_by && !validSorts.includes(sort_by)) {
-    return Promise.reject({ status: 400, msg: 'Invalid sort or order query' });
-  }
-  if (order && !validOrders.includes(order)) {
-    return Promise.reject({ status: 400, msg: 'Invalid sort or order query' });
-  }
-
-  const queryStr = `
-    SELECT articles.author, title, articles.article_id, topic, articles.created_at, articles.votes, article_img_url,
-    COUNT(comments.comment_id)::INT AS comment_count
-    FROM articles
-    LEFT JOIN comments ON articles.article_id = comments.article_id
-    GROUP BY articles.article_id
-    ORDER BY ${sort_by || 'created_at'} ${(order || 'desc').toUpperCase()};
-  `;
-
-  return db.query(queryStr).then((result) => result.rows);
-};
-
-// Kata 11 - GET /api/articles (topic query)
 exports.selectAllArticlesWithFilters = (topic, sort_by = 'created_at', order = 'desc') => {
-  const validSorts = [
-    'author', 'title', 'article_id', 'topic', 'created_at', 'votes', 'article_img_url', 'comment_count'
-  ];
-  const validOrders = ['asc', 'desc'];
-
-  if (sort_by && !validSorts.includes(sort_by)) {
-    return Promise.reject({ status: 400, msg: 'Invalid sort or order query' });
-  }
-  if (order && !validOrders.includes(order)) {
-    return Promise.reject({ status: 400, msg: 'Invalid sort or order query' });
-  }
+  const sortField = getValidatedSortBy(sort_by);
+  const sortOrder = getValidatedOrder(order);
 
   let queryStr = `
     SELECT articles.author, title, articles.article_id, topic, articles.created_at, articles.votes, article_img_url,
@@ -118,7 +84,33 @@ exports.selectAllArticlesWithFilters = (topic, sort_by = 'created_at', order = '
 
   queryStr += `
     GROUP BY articles.article_id
-    ORDER BY ${sort_by || 'created_at'} ${(order || 'desc').toUpperCase()};
+    ORDER BY ${sortField} ${sortOrder};
+  `;
+
+  return db.query(queryStr, queryParams).then((result) => result.rows);
+};
+
+// Kata 11 - GET /api/articles (topic query)
+exports.selectAllArticlesWithFilters = (topic, sort_by = 'created_at', order = 'desc') => {
+  const sortField = getValidatedSortBy(sort_by);
+  const sortOrder = getValidatedOrder(order);
+
+  let queryStr = `
+    SELECT articles.author, title, articles.article_id, topic, articles.created_at, articles.votes, article_img_url,
+    COUNT(comments.comment_id)::INT AS comment_count
+    FROM articles
+    LEFT JOIN comments ON articles.article_id = comments.article_id
+  `;
+  const queryParams = [];
+
+  if (topic) {
+    queryStr += ` WHERE articles.topic = $1`;
+    queryParams.push(topic);
+  }
+
+  queryStr += `
+    GROUP BY articles.article_id
+    ORDER BY ${sortField} ${sortOrder};
   `;
 
   return db.query(queryStr, queryParams).then((result) => result.rows);

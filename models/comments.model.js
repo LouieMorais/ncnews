@@ -61,3 +61,21 @@ exports.insertCommentByArticleId = async (article_id, username, body) => {
   const insertResult = await db.query(insertQuery, [body, username, article_id]);
   return insertResult.rows[0];
 };
+
+// Kata 8: DELETE /api/comments/:comment_id
+exports.deleteCommentById = (comment_id) => {
+  if (!/^[0-9]+$/.test(comment_id)) {
+    return Promise.reject({ status: 400, msg: 'Bad Request: Invalid comment ID' });
+  }
+
+  const queryStr = `
+    DELETE FROM comments
+    WHERE comment_id = $1;
+  `;
+
+  return db.query(queryStr, [comment_id]).then((result) => {
+    if (result.rowCount === 0) {
+      return Promise.reject({ status: 404, msg: 'Comment not found' });
+    }
+  });
+};

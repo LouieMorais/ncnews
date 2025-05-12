@@ -207,3 +207,20 @@ describe('PATCH /api/articles/:article_id', () => {
     expect(res.body.msg).toBe('Article not found');
   });
 });
+
+// Kata 8: DELETE /api/comments/:comment_id
+describe('DELETE /api/comments/:comment_id', () => {
+  it('204: deletes the comment and responds with no content', async () => {
+    await request(app).delete('/api/comments/1').expect(204);
+  });
+
+  it('400: responds with bad request for invalid comment ID', async () => {
+    const res = await request(app).delete('/api/comments/not-a-number').expect(400);
+    expect(res.body.msg).toBe('Bad Request: Invalid comment ID');
+  });
+
+  it('404: responds with not found for non-existent comment', async () => {
+    const res = await request(app).delete('/api/comments/9999').expect(404);
+    expect(res.body.msg).toBe('Comment not found');
+  });
+});

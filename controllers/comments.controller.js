@@ -1,5 +1,5 @@
-// Kata 5 - Get /api/articles/:article_id/comments - to fetch all comments in an article
-const { selectCommentsByArticleId } = require('../models/comments.model');
+const { selectCommentsByArticleId } = require('../models/comments.model');// Kata 5 - Get /api/articles/:article_id/comments - to fetch all comments in an article
+const { deleteCommentById } = require('../models/comments.model'); // Kata 8: DELETE /api/comments/:comment_id
 
 exports.getCommentsByArticleId = (req, res, next) => {
   const { article_id } = req.params;
@@ -21,6 +21,17 @@ exports.postCommentByArticleId = (req, res, next) => {
   insertCommentByArticleId(req.params.article_id, username, body)
     .then((comment) => {
       res.status(201).send({ comment });
+    })
+    .catch(next);
+};
+
+// Kata 8: DELETE /api/comments/:comment_id
+exports.deleteComment = (req, res, next) => {
+  const { comment_id } = req.params;
+
+  deleteCommentById(comment_id)
+    .then(() => {
+      res.status(204).send();
     })
     .catch(next);
 };

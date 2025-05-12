@@ -125,5 +125,9 @@
               "msg": "Article not found"
           }
       ]
+  },
+  "DELETE /api/comments/:comment_id": {
+      "description": "Deletes the specified comment.",
+      "exampleResponse": {}
   }
 }

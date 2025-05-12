@@ -15,15 +15,17 @@
         }
     },
     "GET /api/articles": {
-        "description": "Serves an array of all articles. Supports sorting by any valid column and ordering (ascending/descending) via query parameters.",
+        "description": "Serves an array of all articles. Supports filtering by topic, sorting by any valid column, and ordering (ascending/descending) via query parameters.",
         "queries": [
+            "topic",
             "sort_by",
             "order"
         ],
         "exampleRequests": [
             "/api/articles",
+            "/api/articles?topic=mitch",
             "/api/articles?sort_by=title&order=asc",
-            "/api/articles?sort_by=votes&order=desc"
+            "/api/articles?topic=cats&sort_by=votes&order=desc"
         ],
         "exampleResponse": {
             "articles": [
@@ -43,6 +45,10 @@
             {
                 "status": 400,
                 "msg": "Invalid sort or order query"
+            },
+            {
+                "status": 404,
+                "msg": "Topic not found"
             }
         ]
     },

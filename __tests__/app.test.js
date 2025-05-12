@@ -18,10 +18,6 @@ beforeEach(() => {
   return seed(testData);
 });
 
-// 2. save some electricity by closing the db connection after the tests are done
-afterAll(() => {
-  return db.end();
-})
 
 
 // Kata 1 - CORE: GET /api - Branch 1-get-api
@@ -249,3 +245,31 @@ describe('GET /api/articles (sorting queries)', () => {
     await request(app).get('/api/articles?order=notanorder').expect(400);
   });
 });
+
+// Kata 11 - GET /api/articles (topic query)
+describe('GET /api/articles (topic query)', () => {
+  it('200: filters articles by topic', async () => {
+    const res = await request(app).get('/api/articles?topic=mitch').expect(200);
+    expect(Array.isArray(res.body.articles)).toBe(true);
+    res.body.articles.forEach((article) => {
+      expect(article.topic).toBe('mitch');
+    });
+  });
+
+  it('404: responds with not found for non-existent topic', async () => {
+    const res = await request(app).get('/api/articles?topic=not-a-topic').expect(404);
+    expect(res.body.msg).toBe('Topic not found');
+  });
+
+  it('400: responds with bad request for invalid sort_by or order', async () => {
+    await request(app).get('/api/articles?sort_by=notacolumn').expect(400);
+    await request(app).get('/api/articles?order=notanorder').expect(400);
+  });
+});
+
+
+
+// 2. save some electricity by closing the db connection after the tests are done
+afterAll(() => {
+  return db.end();
+})

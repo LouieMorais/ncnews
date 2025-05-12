@@ -1,6 +1,10 @@
 const { selectArticleById } = require('../models/articles.model'); // Kata 3
 const { selectAllArticles } = require('../models/articles.model'); // Kata 4 - Get /api/articles - to fetch all articles
 const { selectAllArticlesWithSorting } = require('../models/articles.model'); // Kata 10 - GET /api/articles (sorting queries)
+// Kata 11 - GET /api/articles (topic query)
+const { checkTopicExists } = require('../models/topics.model');
+const { selectAllArticlesWithFilters } = require('../models/articles.model');
+
 
 exports.getArticleById = (req, res, next) => {
     const { article_id } = req.params;
@@ -48,3 +52,19 @@ exports.getAllArticlesWithSorting = (req, res, next) => {
       })
       .catch(next);
   };
+
+// Kata 11 - GET /api/articles (topic query)
+exports.getAllArticlesWithFilters = (req, res, next) => {
+    const { topic, sort_by, order } = req.query;
+
+    if (topic) {
+        checkTopicExists(topic)
+        .then(() => selectAllArticlesWithFilters(topic, sort_by, order))
+        .then((articles) => res.status(200).send({ articles }))
+        .catch(next);
+    } else {
+        selectAllArticlesWithFilters(undefined, sort_by, order)
+        .then((articles) => res.status(200).send({ articles }))
+        .catch(next);
+    }
+};

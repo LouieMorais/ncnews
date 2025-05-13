@@ -14,13 +14,25 @@ if (ENV === "production") {
     connectionString: process.env.DATABASE_URL,
     max: 2,
     ssl: {
-      rejectUnauthorized: false, // Required by Supabase
+      rejectUnauthorized: false, // Supabase requires this
     },
   };
 } else {
-  if (!process.env.PGDATABASE) {
-    throw new Error("PGDATABASE not set for non-production environment");
+  if (
+    !process.env.PGDATABASE ||
+    !process.env.PGUSER ||
+    !process.env.PGPASSWORD
+  ) {
+    throw new Error("PGDATABASE, PGUSER or PGPASSWORD not set for dev/test");
   }
+
+  config = {
+    user: process.env.PGUSER,
+    password: process.env.PGPASSWORD,
+    database: process.env.PGDATABASE,
+    host: "localhost",
+    port: 5432,
+  };
 }
 
 const db = new Pool(config);

@@ -25,7 +25,6 @@
   "homepage": "https://github.com/northcoders/be-nc-news#readme",
   "devDependencies": {
     "cross-env": "^7.0.3",
-    "husky": "^8.0.2",
     "jest": "^27.5.1",
     "jest-extended": "^2.0.0",
     "supertest": "^7.1.0"
@@ -34,7 +33,8 @@
     "dotenv": "^16.4.7",
     "express": "^5.1.0",
     "pg": "^8.15.6",
-    "pg-format": "^1.0.4"
+    "pg-format": "^1.0.4",
+    "husky": "^8.0.2"
   },
   "jest": {
     "setupFilesAfterEnv": [

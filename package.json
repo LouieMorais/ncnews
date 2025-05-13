@@ -5,12 +5,12 @@
   "main": "listen.js",
   "scripts": {
     "setup-dbs": "psql -f ./db/setup-dbs.sql",
-    "seed-dev": "node ./db/seeds/run-seed.js",
-    "seed-prod": "cross-env NODE_ENV=production node ./db/seeds/run-seed.js",
-    "test": "jest",
+    "test": "cross-env NODE_ENV=test jest",
+    "test-seed": "cross-env NODE_ENV=test jest seed.test.js",
+    "seed-dev": "cross-env NODE_ENV=development node ./db/seeds/run-seed.js",
+    "seed-prod": "cross-env NODE_ENV=production node ./db/seeds/run-seed.js",    
     "prepare": "husky install",
-    "start": "node listen.js",
-    "test-seed": "jest seed.test.js"
+    "start": "node listen.js"
   },
   "repository": {
     "type": "git",

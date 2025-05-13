@@ -51,4 +51,7 @@ app.use((err, req, res, next) => {
   res.status(500).send({ msg: 'Internal Server Error' });
 });
 
+app.get('/', (req, res) => {
+  res.send('Hello World - Louie was here.')
+})
 module.exports = app;

@@ -6,12 +6,34 @@ on:
 jobs:
   ci:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:14
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: ci_test_db
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
       - uses: actions/checkout@v3
 
-      - name: Test
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Tests
+        env:
+          PGDATABASE: ci_test_db
+          PGUSER: postgres
+          PGPASSWORD: password
+          PGHOST: localhost
         run: |
-          npm install
           npm run test
 
       - name: Deploy to Render

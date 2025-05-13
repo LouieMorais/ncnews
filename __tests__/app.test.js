@@ -40,7 +40,7 @@ describe('GET /api', () => {
     test('200: Responds with an object (?) containing topics', () => {
       return request(app)
       // Log: my heart goes to all the tests that died in the battlefield 
-      // because I copied the test above and didn't add 'topics' to the path
+      // because I copied the test above and didn't add 'topics' to the path 
         .get('/api/topics')
         .expect(200) 
         .then(({ body }) => { 

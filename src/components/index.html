@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Louie's First Deployed API</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <style>
+        html {
+            font-family: Quicksand, 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-size: 18px;
+            color: rgb(55, 55, 55);        }
+        body {
+            max-width: 600px;
+            margin: 20px auto;
+            font-size: 1em;
+            text-align: center;
+            line-height: 1.5;
+            padding: 0 20px;
+        }
+        h1, h2, h3, h4 {
+            font-family: Pacifico;
+            font-weight: normal;
+        }
+        h1 {
+            font-size: 3em;
+            padding-bottom: 0em;
+            margin-bottom: 0.5em;
+        }
+        h2 {
+            display: inline-block;
+            clear: both;
+            font-size: 2.2em;
+            padding-bottom: 0.3em;
+            border-bottom: 2px solid rgb(245, 70, 70);
+            margin-bottom: 1em;
+        }
+        h3 {
+            display: inline-block;
+            clear: both;
+            font-size: 1.8em;
+            padding-bottom: 0.3em;
+            border-bottom: 2px solid rgb(245, 70, 70);
+            margin-bottom: 0.6em;
+        }
+        h4 {
+            font-size: 1.4em;
+            /* font-style: italic; */
+            margin-bottom: 1em;
+        }
+        h5 {
+            font-size: inherit;
+            font-weight: 700;
+            display: inline;
+            color:  rgb(245, 70, 70);
+        }
+        p, li {
+            font-size: 1em;
+            padding-bottom: 0.8em;
+        }
+        .logo{
+            width: 7em;
+        }
+        #central ul li, #central p {
+            text-align: left;
+            max-width: 550px;
+            margin: 0 auto;
+        }
+        #motto img {
+            margin-top: 30px;
+            margin-bottom: 10px;
+        }
+        #motto p {
+            margin: 0.8em;
+            line-height: 0;
+            font-size: 0.6em;
+            text-transform: uppercase;
+        }
+        #central>p {
+            font-size: 1.2em;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+    <img alt="Logo of Forma Digitalis" class="logo" src="./assets/forma-digitalis-logo.png">
+    
+    <section id="central">
+        <h1>My First Deployed API</h1>
+        <h2>NC News Project Overview</h2>
+        <p>NC News is an application developed as part of the Northcoders bootcamp, designed to circulate news articles relevant to Northcoders. This project serves as a portfolio piece demonstrating practical application of backend development skills.</p>
+
+        <h3>Backend Development</h3>
+        <h4>Server & API (Express.js)</h4>
+        <ul>
+            <li><h5>Core Concepts:</h5> HTTP Servers, Express Servers, Routing, Model-View-Controller (MVC) architecture.</li>
+            <li><h5>Implementation:</h5> Middleware for request handling, Error Handling strategies, Handling Empty Responses gracefully.</li>
+        </ul>
+        <h4>Database (PostgreSQL/PSQL)</h4>
+        <ul>
+            <li><h5>Setup & Seeding:</h5> Creating a Database, Inserting Data, Seeding initial data, Managing separate Testing and Development Databases.</li>
+            <li><h5>Interaction & Querying:</h5> Using Node-Postgres for application-database connection, Querying Data, Utilizing Foreign Keys and Joins, Implementing Aggregate Functions, Building Dynamic Queries.</li>
+            <li><h5>Data Management:</h5> Updating Tables.</li>
+        </ul>
+        <h3>Testing</h3>
+        <ul>
+            <li><h5>Methodology:</h5> Integration Testing to ensure different parts of the application work together.</li>
+            <li><h5>Tools:</h5> Using SuperTest for testing HTTP servers.</li>
+        </ul>
+        <h3>Development Workflow & Tools</h3>
+        <ul>
+            <li><h5>Version Control:</h5> Git Branching strategies for managing code changes.</li>
+            <li><h5>Environment:</h5> Managing Environment Variables for configuration.</li>
+            <li><h5>Development Aids:</h5> Using NPM Scripts for task automation, Employing Nodemon for automatic server restarts during development.</li>
+        </ul>
+        <h3>Deployment & CI/CD</h3>
+        <ul>
+            <li><h5>Hosting:</h5> Deploying the application using platforms like Supabase and Render.</li>
+            <li><h5>Automation:</h5> Implementing Continuous Integration and Continuous Delivery (CI/CD) pipelines, using GitHub Actions for automation.</li>
+        </ul>
+
+    </section>
+    <figure id="motto">
+        <img alt="Logo of Forma Digitalis with Louie Morais' name" class="logo" src="./assets/forma-digitalis-logo-flat-louie.png">
+        <p>Creativity Through Code.</p>
+        <p>2025 © Louie Morais - Forma Digitalis</p>
+    </figure>
+</body>
+</html>

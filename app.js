@@ -7,6 +7,7 @@ const { getArticleById } = require('./controllers/articles.controller');
 const { getCommentsByArticleId, postCommentByArticleId, deleteComment } = require('./controllers/comments.controller');
 const { patchArticleVotes, getAllArticlesWithFilters } = require('./controllers/articles.controller');
 const { getAllUsers } = require('./controllers/users.controller');
+const path = require('path');
 
 // Kata 1-get-api
 app.get('/api', (req, res) => {
@@ -51,7 +52,8 @@ app.use((err, req, res, next) => {
   res.status(500).send({ msg: 'Internal Server Error' });
 });
 
+app.use(express.static(path.resolve(__dirname, 'src')));
 app.get('/', (req, res) => {
-  res.send('Hello World \n Alpha by Louie')
+  res.sendFile(path.resolve(__dirname, './src/components/index.html'));
 })
 module.exports = app;

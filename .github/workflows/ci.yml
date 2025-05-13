@@ -1,18 +1,21 @@
+name: CI/CD Pipeline
+
 on:
   push:
     branches: [main]
   pull_request:
 
 jobs:
-  ci:
+  test-and-deploy:
     runs-on: ubuntu-latest
+
     services:
       postgres:
         image: postgres:14
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: password
-          POSTGRES_DB: ci_test_db
+          POSTGRES_DB: ncnews_test
         ports:
           - 5432:5432
         options: >-
@@ -24,17 +27,21 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
       - name: Install dependencies
         run: npm install
 
-      - name: Run Tests
+      - name: Run tests
         env:
-          PGDATABASE: ci_test_db
+          PGDATABASE: ncnews_test
           PGUSER: postgres
           PGPASSWORD: password
           PGHOST: localhost
-        run: |
-          npm run test
+        run: npm run test
 
       - name: Deploy to Render
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
@@ -42,8 +49,8 @@ jobs:
           deploy_url: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
         run: |
           response=$(curl -s -o /dev/null -w "%{http_code}" "$deploy_url")
-          echo "Deploy hook response: $response"
+          echo "Deploy response: $response"
           if [ "$response" -ne 200 ]; then
-            echo "Deploy failed"
+            echo "Deployment failed"
             exit 1
           fi

@@ -32,11 +32,14 @@
             margin-bottom: 0.5em;
         }
         h2 {
-            display: inline-block;
+            /* display: inline-block; */
             clear: both;
-            font-size: 2.2em;
-            border-bottom:  3px solid rgba(245, 70, 70, 0.3);
+            font-size: 2.2em;;
             margin-bottom: 1em;
+            text-decoration-line: underline;
+            text-decoration-style: wavy;
+            text-decoration-color: rgba(245, 70, 70, 0.5);
+            text-decoration-skip-ink: none;
         }
         h3 {
             /* display: inline-block; */
@@ -99,6 +102,19 @@
             letter-spacing: 0.4em;
             font-weight: 800;
         }
+        h2 span {
+            color: white;
+            font-size: 1.2em;
+            display: inline-block;
+            float: none;
+            padding: 0.3em;
+            background-color: rgba(245, 70, 70, 0.5);
+            border-radius: 0.7em;
+            height: 0.7em;
+            width: 0.7em;
+            line-height: 0.4em;
+            /* margin: 0 -10px; */
+        }
 
     </style>
 </head>
@@ -109,7 +125,7 @@
         <h1>NC News Project Overview</h1>
         <p>NC News is an application developed as part of the Northcoders bootcamp, designed to circulate news articles relevant to Northcoders. This project serves as a portfolio piece demonstrating practical application of backend development skills.</p>
 
-        <h2>1. Backend Development</h2>
+        <h2><span>1.</span> Backend Development</h2>
         <h3>Server & API: Express.js</h3>
         <ul>
             <li><h5>Core Concepts:</h5> HTTP Servers, Express Servers, Routing, Model-View-Controller (MVC) architecture.</li>
@@ -121,18 +137,18 @@
             <li><h5>Interaction & Querying:</h5> Using Node-Postgres for application-database connection, Querying Data, Utilizing Foreign Keys and Joins, Implementing Aggregate Functions, Building Dynamic Queries.</li>
             <li><h5>Data Management:</h5> Updating Tables.</li>
         </ul>
-        <h2>2. Testing</h2>
+        <h2><span>2.</span> Testing</h2>
         <ul>
             <li><h5>Methodology:</h5> Integration Testing to ensure different parts of the application work together.</li>
             <li><h5>Tools:</h5> Using SuperTest for testing HTTP servers.</li>
         </ul>
-        <h2>3. Development Workflow & Tools</h2>
+        <h2><span>3.</span> Development Workflow & Tools</h2>
         <ul>
             <li><h5>Version Control:</h5> Git Branching strategies for managing code changes.</li>
             <li><h5>Environment:</h5> Managing Environment Variables for configuration.</li>
             <li><h5>Development Aids:</h5> Using NPM Scripts for task automation, Employing Nodemon for automatic server restarts during development.</li>
         </ul>
-        <h2>4. Deployment & CI/CD</h2>
+        <h2><span>4.</span> Deployment & CI/CD</h2>
         <ul>
             <li><h5>Hosting:</h5> Deploying the application using platforms like Supabase and Render.</li>
             <li><h5>Automation:</h5> Implementing Continuous Integration and Continuous Delivery (CI/CD) pipelines, using GitHub Actions for automation.</li>

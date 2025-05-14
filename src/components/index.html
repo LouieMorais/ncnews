@@ -69,10 +69,6 @@
             width: 7em;
             margin: 40px 0 0 0;
         }
-        #central ul li, #central p {
-            text-align: left;
-            margin: 0 auto;
-        }
         #motto img {
             margin-top: 10px;
         }
@@ -89,13 +85,23 @@
             clear: both;
             width: 100%;
         }
+        #central {
+            max-width: 550px;
+            margin: 0 auto;
+
+        }
         #central>p {
             font-size: 1.2em;
-            text-align: center;
+            text-align: center !important;
         }
+        #central ul li, #central p {
+            text-align: left;
+        }
+
         ul {
             margin:0;
             margin-bottom: 3em;
+            padding-inline-start: 20px; 
         }
         #motto p.spaced {
             letter-spacing: 0.4em;

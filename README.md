@@ -1,6 +1,6 @@
 ## NC News Project Overview
 
-[Current Live Deployment](https://nc-news-api-te8j.onrender.com/)
+[Current Live Deployment on Render - Please wait site to load](https://nc-news-api-te8j.onrender.com/)
 
 NC News is an application developed as part of the Northcoders bootcamp, designed to circulate news articles relevant to Northcoders. This project serves as a portfolio piece demonstrating practical application of backend development skills.
 
